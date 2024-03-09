@@ -23,7 +23,7 @@
       background-image: url('stat-label.png');
     }
     .player-name{
-      color: white; padding: 5px; margin-left: -70px; 
+      color: white; margin-left: -70px; 
       font-size: 1.8em;font-weight: bold;
       width: 500px; align-content: center; text-align: center;
       background-image: url('name.png');
@@ -48,8 +48,8 @@
     }
   </style>
 </head>
-<body>
-  <div style="display: flex; position:absolute; top:20px; left:20px;" 
+<body style="margin:auto; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+  <div style="" 
   x-data="{
     imageWidth: 0,
     imageHeight: 0,
@@ -82,128 +82,330 @@
       this.imageWidth = dimensions.width;
       this.imageHeight = dimensions.height;
     },
+    teams: [
+      { name: 'RED',        wins: 0, losses: 0, color: 'red' },
+      { name: 'DARK BLUE',  wins: 0, losses: 0, color: 'blue' },
+      { name: 'LIGHT BLUE', wins: 0, losses: 0, color: 'lightblue' },
+      { name: 'GREEN',      wins: 0, losses: 0, color: 'green' },
+      { name: 'YELLOW',     wins: 0, losses: 0, color: 'yellow' },
+      { name: 'WHITE',      wins: 0, losses: 0, color: 'white' },
+      { name: 'BLACK',      wins: 0, losses: 0, color: 'black' },
+      { name: 'ORANGE',     wins: 0, losses: 0, color: 'orange' },
+      { name: 'PURPLE',     wins: 0, losses: 0, color: 'purple' },
+      { name: 'PINK',       wins: 0, losses: 0, color: 'pink' },
+      { name: 'BROWN',      wins: 0, losses: 0, color: 'brown' },
+      { name: 'GRAY',       wins: 0, losses: 0, color: 'gray' },
+      { name: 'MAROON',     wins: 0, losses: 0, color: 'maroon' }
+    ],
+    sortTeams() {
+      this.teams.sort((a, b) => b.wins - a.wins);
+    }
   }"
   >
-    
+
+
+      <div class="flex flex-wrap">
+        <div class="w-full">
+          
+          <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row p-4" role="tablist">
+            <li class="-mb-px mr-2 last:mr-0 text-center">
+              <button class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " x-on:click="potg_tab = true"
+              :class="potg_tab == true ? 'text-white bg-blue-600' : 'text-blue-600 bg-white'"
+              >
+                <i class="fas fa-space-shuttle text-base mr-1"></i> Layout
+              </button>
+            </li>
+            <li class="-mb-px mr-2 last:mr-0 text-center">
+              <button class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " x-on:click="potg_tab = false"
+              :class="potg_tab == false ? 'text-white bg-blue-600' : 'text-blue-600 bg-white'">
+                <i class="fas fa-cog text-base mr-1"></i> Stats
+              </button>
+            </li>
+          </ul>
+
+          <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <div class="px-4 py-5 ">
+              <div class="tab-content tab-space">
+                <div id="link1" :class="{ 'hidden': potg_tab == false }">
+
+
+
+                  <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:640px; padding-top: 5px;" id="potg">
+                    <div style="display: flex; justify-content: space-around; margin-top: 15px;">
+                      <div>
+                          <div style="display: flex; padding-left: 20px;margin-bottom: -15px;">
+                            <div style="padding-right: 10px;">
+                              <img src="dw.jpg" style="width:60px; height:60px;">
+                            </div>
+                            <div style="color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                              <div style="font-weight: bold; font-size: 2.4em; margin-bottom: -15px;margin-top: -10px;font-family: Arial Black, Helvetica, sans-serif;">DONUT</div>
+                              <div style="font-weight: bold; font-size: 1.2em;">W O R R Y</div>
+                            </div>
+                          </div>
+                          <div style="display: flex; flex-direction: column; align-items: center;color: white;">
+                            <div style="font-weight: bold;font-size: 2.6em;margin-bottom: -15px;font-family: Arial Black, Helvetica, sans-serif;">P L A Y E R</div>
+                            <p style="font-weight: bold;margin-bottom: -10px;">of the</p>
+                            <p style="font-weight: bold;font-size: 1.8em;font-family: Arial Black, Helvetica, sans-serif;margin-bottom: -10px;">G A M E</p>
+                            <p style="color: white; font-size: 1.1em;font-weight: bold;" x-text="date"></p>
+                          </div>  
+                          
+                      </div>
+                      <div style="justify-content: center; align-items: center; margin-top: 15px;">
+                        <div style="margin-bottom: 10px;">
+                          <div style="display: flex;align-items: center;justify-content: center;  ">
+                            <img src="adc.png" style="height:60px; margin-right: 5px;">
+                            <img src="ateneo.png" style="height:60px;">
+                          </div>
+                        </div>
+                        <div style="color: white; font-size: 1.2em; font-weight: bold;" :class="{ 'hidden': team1 == '' || team2 == '' }">
+                          <div align="center" class="team-score"><span  x-text="team1"></span> <span x-text="team1_score"  :class="{ 'hidden': team1_score == 0 || team2_score == 0 }"></span></div>
+                          <div align="center" style="color: black;">VS</div>
+                          <div align="center" class="team-score"><span x-text="team2"></span> <span x-text="team2_score" :class="{ 'hidden': team1_score == 0 || team2_score == 0 }"></span></div>
+                        </div>
+                      </div>  
+                    </div>  
+                    <div >
+                        <div style="display: flex; margin-top: 5px;">
+                          <div style="object-position: top; width:300px; height:300px;  background-size: 100%; margin-left: 15px;overflow: hidden; "> <!-- :style="{ 'background-image': 'url(' + photo + ')'}" -->
+                            <div style="object-position: top; overflow: hidden; width: 100%; display: flex; align-items: center; justify-content: center;">
+                              <img 
+                                :src="photo"
+                                @load="updateImageDimensions(photo)"
+                                style="object-position: top; overflow: hidden;"
+                                :style="imageWidth > imageHeight ? 'height:300px;max-width:none;' : 'width:300px;'"
+                                >
+                              </div>
+                          </div>
+                          <div style="padding-left: 15px; padding-top: 10px;">
+                            <div :class="{ 'hidden': points == 0 }">
+                              <div class="stats-container">
+                                <span class="stats" x-text="points < 10 ? '0' + points : points"></span>
+                                <span class="stats-label">POINTS</span>
+                              </div>
+                            </div>
+                            <div :class="{ 'hidden': rebounds == 0 }">
+                              <div class="stats-container">
+                                
+                                <span class="stats" x-text="rebounds < 10 ? '0' + rebounds : rebounds"></span>
+                                <span class="stats-label">REBOUNDS</span>
+                              </div>
+                            </div>
+              
+                        <div :class="{ 'hidden': assist == 0 }">
+                            <div class="stats-container">
+                              <span class="stats" x-text="assist < 10 ? '0' + assist : assist"></span>
+                              
+                            <span class="stats-label">ASSISTS</span>
+                          </div>
+                        </div>
+                        <div :class="{ 'hidden': steals == 0 }">
+                            <div class="stats-container">
+                              <span class="stats" x-text="steals < 10 ? '0' + steals : steals"></span>
+                              
+                              <span class="stats-label">STEALS</span>
+                          </div>
+                        </div>
+                        <div :class="{ 'hidden': blocks == 0 }">
+                            <div class="stats-container">
+                              
+                              <span class="stats" x-text="blocks < 10 ? '0' + blocks : blocks"></span>
+                            <span class="stats-label">BLOCKS</span>
+                          </div>
+                          </div>
+                          </div>
+                        </div>
+                        <div style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 30px;">
+                          <div class="player-name" x-text="name.toUpperCase()"></div>
+                          <div :class="{ 'hidden': jersey == '' }">
+                            <div class="player-number">#<span x-text="jersey"></span></div>
+                          </div>
+                        </div>
+                        
+                          <div style="display: flex;align-items: center;justify-content: center; margin-top: 10px; ">
+                            <img src="sponsors/1.jpg" style="height:60px; margin-right: 5px;">
+                            <img src="sponsors/2.jpg" style="height:60px; margin-right: 5px;">
+                            <img src="sponsors/3.jpg" style="height:60px; margin-right: 5px;">
+                            <img src="sponsors/4.jpg" style="height:60px; margin-right: 5px;">
+                            <img src="sponsors/5.jpg" style="height:60px; margin-right: 5px;">
+                            <img src="sponsors/6.jpg" style="height:60px; margin-right: 5px;">
+                          </div>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+                <div id="link2"  :class="{ 'hidden': potg_tab == true }" style="width:640px; height:640px; padding-top: 5px;">
+                  
+                  
+                  <div>
+                    <div style="justify-content: center; margin-top: 20px;">
+                      <label class="block text-black text-sm font-bold mb-2" for="date">
+                        <span class="text-black  text-l">Game Date</span>
+                      </label>
+                      <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="date" x-model="date">
+                      <label class="block text-black text-sm font-bold mb-2" for="teams">
+                        <span class="text-black  text-l">Teams</span>
+                      </label>
+                      <div class="mb-1  pb-4">
+                        <select class="border-2 border-blue-500 rounded-lg p-2 text-l" name="team1" id="team1" x-model="team1">
+                          <option value="">Select</option>
+                          <option value="RED">RED</option>
+                          <option value="D. BLUE">D. BLUE</option>
+                          <option value="L. BLUE">L. BLUE</option>
+                          <option value="GREEN">GREEN</option>
+                          <option value="YELLOW">YELLOW</option>
+                          <option value="WHITE">WHITE</option>
+                          <option value="BLACK">BLACK</option>
+                          <option value="ORANGE">ORANGE</option>
+                          <option value="PURPLE">PURPLE</option>
+                          <option value="PINK">PINK</option>
+                          <option value="BROWN">BROWN</option>
+                          <option value="GRAY">GRAY</option>
+                          <option value="MAROON">MAROON</option>
+                        </select>
+              
+                        <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="team1_score" style="width: 60px;" min="0" max="99"  onfocus="this.select();">
+                        <span class="text-black  text-l">VS</span>
+                        <select class="border-2 border-blue-500 rounded-lg p-2 text-l" name="team2" id="team2" x-model="team2">
+                          <option value="">Select</option>
+                          <option value="RED">RED</option>
+                          <option value="D. BLUE">D. BLUE</option>
+                          <option value="L. BLUE">L. BLUE</option>
+                          <option value="GREEN">GREEN</option>
+                          <option value="YELLOW">YELLOW</option>
+                          <option value="WHITE">WHITE</option>
+                          <option value="BLACK">BLACK</option>
+                          <option value="ORANGE">ORANGE</option>
+                          <option value="PURPLE">PURPLE</option>
+                          <option value="PINK">PINK</option>
+                          <option value="BROWN">BROWN</option>
+                          <option value="GRAY">GRAY</option>
+                          <option value="MAROON">MAROON</option>
+                        </select>
+              
+                        <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="team2_score" style="width: 60px;" min="0" max="99"  onfocus="this.select();">
+                      </div>
+                      <hr class="pb-4">
+                      <label class="block text-black text-sm font-bold mb-1" for="points">
+                        <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="points" min="0" max="99" onfocus="this.select();">
+                        <span class="text-black  text-l">Points</span>
+                      </label>
+                      <label class="block text-black text-sm font-bold mb-1" for="rebounds">
+                        <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="rebounds" min="0" max="99" onfocus="this.select();">
+                        <span class="text-black  text-l">Rebounds</span>
+                      </label>
+                      <label class="block text-black text-sm font-bold mb-1" for="assists">
+                        <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="assist" min="0" max="99" onfocus="this.select();">
+                        <span class="text-black  text-l">Assists</span>
+                      </label>
+                      <label class="block text-black text-sm font-bold mb-1" for="steals">
+                        <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="steals" min="0" max="99" onfocus="this.select();">
+                        <span class="text-black  text-l">Steals</span>
+                      </label>
+                      <label class="block text-black text-sm font-bold mb-1" for="blocks">
+                        <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="blocks" min="0" max="99" onfocus="this.select();">
+                        <span class="text-black  text-l">Blocks</span>
+                      </label>
+                      
+                      <label class="block text-black text-sm font-bold mb-1" for="name">
+                        <span class="text-black text-l">Player Name</span>
+                      </label>
+                      <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="text" x-model="name" onfocus="this.select();">
+                      <label class="block text-black text-sm font-bold mb-1" for="number">
+                        <span class="text-black  text-l">Jersey Number</span>
+                      </label>
+                      <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="text" x-model="jersey" onfocus="this.select();">
+                      <label class="block text-black text-sm font-bold mb-1" for="photo">
+                        <span class="text-black  text-l">Photo</span>
+                      </label>
+                      <!-- <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file"> -->
+                      <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file" x-on:change="photo = URL.createObjectURL($event.target.files[0])">
+                      <!-- <div>
+                        <button id="downloadButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button>
+                      </div> -->
+                    </div>
+                    
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
 
 
 
   <div class="flex flex-wrap">
     <div class="w-full">
-      
-      <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" role="tablist">
-        <li class="-mb-px mr-2 last:mr-0 text-center">
-          <button class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " x-on:click="potg_tab = true"
-          :class="potg_tab == true ? 'text-white bg-blue-600' : 'text-blue-600 bg-white'"
-          >
-            <i class="fas fa-space-shuttle text-base mr-1"></i> Layout
-          </button>
-        </li>
-        <li class="-mb-px mr-2 last:mr-0 text-center">
-          <button class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " x-on:click="potg_tab = false"
-           :class="potg_tab == false ? 'text-white bg-blue-600' : 'text-blue-600 bg-white'">
-            <i class="fas fa-cog text-base mr-1"></i> Stats
-          </button>
-        </li>
-      </ul>
 
       <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div class="px-4 py-5 ">
           <div class="tab-content tab-space">
-            <div id="link1" :class="{ 'hidden': potg_tab == false }">
+            <div id="">
 
 
 
-              <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:640px; padding-top: 5px;" id="potg">
+              <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:640px; padding-top: 10px;" id="potg">
                 <div style="display: flex; justify-content: space-around; margin-top: 15px;">
+                  
                   <div>
-                      <div style="display: flex; padding-left: 20px;margin-bottom: -15px;">
-                        <div style="padding-right: 10px;">
-                          <img src="dw.jpg" style="width:60px; height:60px;">
-                        </div>
-                        <div style="color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                          <div style="font-weight: bold; font-size: 2.4em; margin-bottom: -15px;margin-top: -10px;font-family: Arial Black, Helvetica, sans-serif;">DONUT</div>
-                          <div style="font-weight: bold; font-size: 1.2em;">W O R R Y</div>
-                        </div>
-                      </div>
+                      
                       <div style="display: flex; flex-direction: column; align-items: center;color: white;">
-                        <div style="font-weight: bold;font-size: 2.6em;margin-bottom: -15px;font-family: Arial Black, Helvetica, sans-serif;">P L A Y E R</div>
-                        <p style="font-weight: bold;margin-bottom: -10px;">of the</p>
-                        <p style="font-weight: bold;font-size: 1.8em;font-family: Arial Black, Helvetica, sans-serif;margin-bottom: -10px;">G A M E</p>
+                        <p style="font-weight: bold;font-size: 1.6em;">Team Wins and Losses Record</p>
                         <p style="color: white; font-size: 1.1em;font-weight: bold;" x-text="date"></p>
                       </div>  
                       
                   </div>
-                  <div style="justify-content: center; align-items: center; margin-top: 15px;">
+
+                  <div style="justify-content: center; align-items: center; margin-top: -10px;">
                     <div style="margin-bottom: 10px;">
                       <div style="display: flex;align-items: center;justify-content: center;  ">
                         <img src="adc.png" style="height:60px; margin-right: 5px;">
                         <img src="ateneo.png" style="height:60px;">
                       </div>
                     </div>
-                    <div style="color: white; font-size: 1.2em; font-weight: bold;" :class="{ 'hidden': team1 == '' || team2 == '' }">
-                      <div align="center" class="team-score"><span  x-text="team1"></span> <span x-text="team1_score"  :class="{ 'hidden': team1_score == 0 || team2_score == 0 }"></span></div>
-                      <div align="center" style="color: black;">VS</div>
-                      <div align="center" class="team-score"><span x-text="team2"></span> <span x-text="team2_score" :class="{ 'hidden': team1_score == 0 || team2_score == 0 }"></span></div>
-                    </div>
-                  </div>  
+                  </div>
+                  
+                    
                 </div>  
                 <div >
-                    <div style="display: flex; margin-top: 5px;">
-                      <div style="object-position: top; width:300px; height:300px;  background-size: 100%; margin-left: 15px;overflow: hidden; "> <!-- :style="{ 'background-image': 'url(' + photo + ')'}" -->
-                        <div style="object-position: top; overflow: hidden; width: 100%; display: flex; align-items: center; justify-content: center;">
-                          <img 
-                            :src="photo"
-                            @load="updateImageDimensions(photo)"
-                            style="object-position: top; overflow: hidden;"
-                            :style="imageWidth > imageHeight ? 'height:300px;max-width:none;' : 'width:300px;'"
-                            >
-                          </div>
-                      </div>
-                      <div style="padding-left: 15px; padding-top: 10px;">
-                        <div :class="{ 'hidden': points == 0 }">
-                          <div class="stats-container">
-                            <span class="stats" x-text="points < 10 ? '0' + points : points"></span>
-                            <span class="stats-label">POINTS</span>
-                          </div>
+                    <div style="display: flex; margin-top: 10px;">
+                    </div>
+
+                      <div style="display: flex; flex-direction: column; align-items: center; color: white; font-size: 1.2em;"   class="px-10">
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                          <p style="font-weight: bold;width: 50%;">Teams</p>
+                          <p style="font-weight: bold;width: 25%;" class="text-center" >Wins</p>
+                          <p style="font-weight: bold;width: 25%;" class="text-center" >Losses</p>
                         </div>
-                        <div :class="{ 'hidden': rebounds == 0 }">
-                          <div class="stats-container">
-                            
-                            <span class="stats" x-text="rebounds < 10 ? '0' + rebounds : rebounds"></span>
-                            <span class="stats-label">REBOUNDS</span>
+
+
+                        <template x-for="(team, index) in teams" :key="index">
+                          <div :style="{ background: index % 2 != 0 ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }" style="display: flex; justify-content: space-around ; width: 100%;">
+                            <div style="width: 50%; align-items: center;justify-content: center;">
+                              <div :style="{ background: team.color, color: team.color }" style="width: 30px; display: inline-block; margin: 2px;">-</div>
+                              <div x-text="team.name" style="justify-content: center;display: inline-block;"></div>
+                            </div>
+                            <input style="width: 25%; background: transparent; font-weight: bolder;" class="text-center" x-on:blur="team.wins = parseInt($event.target.value);" onfocus="this.select();" :value="team.wins"></input>
+                            <input style="width: 25%; background: transparent; font-weight: bolder;" class="text-center" x-on:blur="team.losses = parseInt($event.target.value);" onfocus="this.select();" :value="team.losses"></input>
                           </div>
-                        </div>
-          
-                    <div :class="{ 'hidden': assist == 0 }">
-                        <div class="stats-container">
-                          <span class="stats" x-text="assist < 10 ? '0' + assist : assist"></span>
-                          
-                        <span class="stats-label">ASSISTS</span>
+                        </template> 
+                        
+                        <!-- <div x-for="(team, index) in teams" :key="index" >
+                          <p x-text="team.name"></p>
+                          <p x-text="team.wins"></p>
+                          <p x-text="team.losses"></p>
+                        </div> -->
+
                       </div>
-                    </div>
-                    <div :class="{ 'hidden': steals == 0 }">
-                        <div class="stats-container">
-                          <span class="stats" x-text="steals < 10 ? '0' + steals : steals"></span>
-                          
-                          <span class="stats-label">STEALS</span>
-                      </div>
-                    </div>
-                    <div :class="{ 'hidden': blocks == 0 }">
-                        <div class="stats-container">
-                          
-                          <span class="stats" x-text="blocks < 10 ? '0' + blocks : blocks"></span>
-                        <span class="stats-label">BLOCKS</span>
-                      </div>
-                      </div>
-                      </div>
-                    </div>
-                    <div style="display: flex; justify-content: center; margin-top: 5px;">
-                      <div class="player-name" x-text="name.toUpperCase()"></div>
-                      <div :class="{ 'hidden': jersey == '' }">
-                      <div class="player-number">#<span x-text="jersey"></span></div>
-                      </div>
-                    </div>
                     
                       <div style="display: flex;align-items: center;justify-content: center; margin-top: 10px; ">
                         <img src="sponsors/1.jpg" style="height:60px; margin-right: 5px;">
@@ -212,15 +414,13 @@
                         <img src="sponsors/4.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/5.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/6.jpg" style="height:60px; margin-right: 5px;">
+                        <button x-on:click="sortTeams()">__</button>
                       </div>
                 </div>
               </div>
 
-
-
-
             </div>
-            <div id="link2"  :class="{ 'hidden': potg_tab == true }" style="width:640px; height:640px; padding-top: 5px;">
+            <!-- <div id="link2"  :class="{ 'hidden': potg_tab == true }" style="width:640px; height:640px; padding-top: 5px;">
               
               
               <div>
@@ -304,18 +504,21 @@
                   <label class="block text-black text-sm font-bold mb-1" for="photo">
                     <span class="text-black  text-l">Photo</span>
                   </label>
-                  <!-- <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file"> -->
+                  
                   <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file" x-on:change="photo = URL.createObjectURL($event.target.files[0])">
-                  <!-- <div>
-                    <button id="downloadButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button>
-                  </div> -->
+                  
                 </div>
                 
               </div>
 
 
 
-            </div>
+            </div> -->
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -325,7 +528,7 @@
 
 
   </div>
-    
+
 </body>
 <script>
 // window.onload = function() {
