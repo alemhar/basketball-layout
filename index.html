@@ -147,7 +147,7 @@
 
 
 
-              <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:720px; padding-top: 10px;" id="potg">
+              <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:720px; padding-top: 10px;" id="team">
                 <div style="display: flex; justify-content: space-around; margin-top: 0px;">
                   
                   <div>
@@ -228,6 +228,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <button id="downloadTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button>
     </div>
   </div>
 
@@ -364,7 +367,7 @@
 
 
             </div>
-            <div id="link2"  :class="{ 'hidden': potg_tab == true }" style="width:640px; height:640px; padding-top: 5px;">
+            <div id="link2"  :class="{ 'hidden': potg_tab == true }" style="width:640px; height:660px; padding-top: 5px;">
               
               
               <div>
@@ -379,40 +382,42 @@
                   <div class="mb-1  pb-4">
                     <select class="border-2 border-blue-500 rounded-lg p-2 text-l" name="team1" id="team1" x-model="team1">
                       <option value="">Select</option>
-                      <option value="RED">RED</option>
-                      <option value="D. BLUE">D. BLUE</option>
-                      <option value="L. BLUE">L. BLUE</option>
-                      <option value="GREEN">D. GREEN</option>
-                      <option value="L. GREEN">L. GREEN</option>
-                      <option value="YELLOW">YELLOW</option>
-                      <option value="WHITE">WHITE</option>
                       <option value="BLACK">BLACK</option>
-                      <option value="ORANGE">ORANGE</option>
-                      <option value="PURPLE">PURPLE</option>
-                      <option value="PINK">PINK</option>
                       <option value="BROWN">BROWN</option>
+                      <option value="D. BLUE">D. BLUE</option>
+                      <option value="D. GREEN">D. GREEN</option>
                       <option value="GRAY">GRAY</option>
+                      <option value="GREEN">GREEN</option>
+                      <option value="L. BLUE">L. BLUE</option>
+                      <option value="L. GREEN">L. GREEN</option>
                       <option value="MAROON">MAROON</option>
+                      <option value="ORANGE">ORANGE</option>
+                      <option value="PINK">PINK</option>
+                      <option value="PURPLE">PURPLE</option>
+                      <option value="RED">RED</option>
+                      <option value="WHITE">WHITE</option>
+                      <option value="YELLOW">YELLOW</option>
                     </select>
           
                     <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="team1_score" style="width: 60px;" min="0" max="99"  onfocus="this.select();">
                     <span class="text-black  text-l">VS</span>
                     <select class="border-2 border-blue-500 rounded-lg p-2 text-l" name="team2" id="team2" x-model="team2">
                       <option value="">Select</option>
-                      <option value="RED">RED</option>
-                      <option value="D. BLUE">D. BLUE</option>
-                      <option value="L. BLUE">L. BLUE</option>
-                      <option value="GREEN">D. GREEN</option>
-                      <option value="L. GREEN">L. GREEN</option>
-                      <option value="YELLOW">YELLOW</option>
-                      <option value="WHITE">WHITE</option>
                       <option value="BLACK">BLACK</option>
-                      <option value="ORANGE">ORANGE</option>
-                      <option value="PURPLE">PURPLE</option>
-                      <option value="PINK">PINK</option>
                       <option value="BROWN">BROWN</option>
+                      <option value="D. BLUE">D. BLUE</option>
+                      <option value="D. GREEN">D. GREEN</option>
                       <option value="GRAY">GRAY</option>
+                      <option value="GREEN">GREEN</option>
+                      <option value="L. BLUE">L. BLUE</option>
+                      <option value="L. GREEN">L. GREEN</option>
                       <option value="MAROON">MAROON</option>
+                      <option value="ORANGE">ORANGE</option>
+                      <option value="PINK">PINK</option>
+                      <option value="PURPLE">PURPLE</option>
+                      <option value="RED">RED</option>
+                      <option value="WHITE">WHITE</option>
+                      <option value="YELLOW">YELLOW</option>
                     </select>
           
                     <input class="border-2 border-blue-500 rounded-lg p-2 text-l" type="number" x-model="team2_score" style="width: 60px;" min="0" max="99"  onfocus="this.select();">
@@ -452,9 +457,12 @@
                   </label>
                   <!-- <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file"> -->
                   <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file" x-on:change="photo = URL.createObjectURL($event.target.files[0])">
-                  <!-- <div>
-                    <button id="downloadButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button>
-                  </div> -->
+                  <div>
+                    <button id="downloadPlayer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download POTG</button>
+                  </div>
+                  <div>
+                    <button id="downloadTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Team</button>
+                  </div>
                 </div>
                 
               </div>
@@ -474,15 +482,24 @@
 
 </body>
 <script>
-// window.onload = function() {
-//   document.getElementById('downloadButton').addEventListener('click', function() {
-//     html2canvas(document.querySelector("#potg")).then(canvas => {
-//       var link = document.createElement('a');
-//       link.download = 'filename.png';
-//       link.href = canvas.toDataURL("image/png");
-//       link.click();
-//     });
-//   });
-// }
+window.onload = function() {
+  document.getElementById('downloadPlayer').addEventListener('click', function() {
+    html2canvas(document.querySelector("#potg")).then(canvas => {
+      var link = document.createElement('a');
+      link.download = 'filename_player.png';
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  });
+
+  document.getElementById('downloadTeam').addEventListener('click', function() {
+    html2canvas(document.querySelector("#team")).then(canvas => {
+      var link = document.createElement('a');
+      link.download = 'filename_team.png';
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  });
+}
 </script>
 </html>
