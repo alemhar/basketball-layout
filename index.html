@@ -229,9 +229,6 @@
         </div>
       </div>
     </div>
-    <div>
-      <button id="downloadTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download</button>
-    </div>
   </div>
 
 
@@ -457,11 +454,13 @@
                   </label>
                   <!-- <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file"> -->
                   <input class="border-2 border-blue-500 rounded-lg p-2 text-lg" type="file" x-on:change="photo = URL.createObjectURL($event.target.files[0])">
-                  <div>
-                    <button id="downloadPlayer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download POTG</button>
-                  </div>
-                  <div>
-                    <button id="downloadTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Team</button>
+                  <div class="flex justify-between">
+                    <div>
+                      <button id="downloadPlayer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download POTG</button>
+                    </div>
+                    <div>
+                      <button id="downloadTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Team</button>
+                    </div>
                   </div>
                 </div>
                 
