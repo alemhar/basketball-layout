@@ -9,17 +9,24 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     .stats{
-      color: #0a2059; padding: 5px; margin-right: -5px;
+      color: #0a2059;
+      padding: 5px; 
+      margin-right: -5px;
       background-image: url('stat.png');
-      padding-left: 30px; padding-right: 30px;
-      
+      padding-left: 30px; 
+      padding-right: 60px;
     }
     .stats-container{
-      display: flex;font-size: 1.8em;font-weight: bold;  margin-bottom: 5px;
+      /* display: flex; */
+      font-size: 1.8em;font-weight: bold;  margin-bottom: 15px;
+      width: 280px;
       
     }
     .stats-label{
-      color: white; padding: 5px; width: 200px; padding-left: 25px;
+      color: white;
+      padding: 5px; 
+      width: 200px;
+      padding-left: 25px;
       background-image: url('stat-label.png');
     }
     .player-name{
@@ -53,11 +60,11 @@
   x-data="{
     imageWidth: 0,
     imageHeight: 0,
-    points: 0,
-    rebounds: 0,
-    assist: 0,
-    steals: 0,
-    blocks: 0,
+    points: 4,
+    rebounds: 11,
+    assist: 3,
+    steals: 13,
+    blocks: 4,
     name: '',
     jersey: '',
     photo: 'potg_default.png',
@@ -82,11 +89,26 @@
       this.imageWidth = dimensions.width;
       this.imageHeight = dimensions.height;
     },
+    teams: [
+      { name: 'RED #1 (MAMBURAM)', wins: 1, losses: 0, color: 'red' },  
+      { name: 'ORANGE #2 (IPONG)', wins: 0, losses: 1, color: 'orange' },
+      { name: 'GRAY #3 (RUBIO)',wins: 0, losses: 1, color: 'gray' },
+      { name: 'YELLOW #4 (NECESITO)', wins: 0, losses: 1, color: 'yellow' },
+      { name: 'PURPLE #5 (DE Vera)', wins: 1, losses: 0, color: 'purple' },
+      { name: 'WHITE #6 (DE GUZMAN)', wins: 1, losses: 0, color: 'white' },
+      { name: 'DARK BLUE #7 (ALCOBERES)', wins: 0, losses: 0, color: 'darkblue' },
+      { name: 'LIGHT BLUE #8 (BOCALA)', wins: 0, losses: 1, color: 'lightblue' },
+      { name: 'GREEN #9 (ROGOLTZ)', wins: 0, losses: 1, color: 'green' },
+      { name: 'BROWN #10 (BIRREY)', wins: 1, losses: 0, color: 'brown' },
+      { name: 'MAROON #11 (PALO)', wins: 1, losses: 0, color: 'maroon' },
+      { name: 'PINK #12 (MARQUEZ)', wins: 1, losses: 0, color: 'pink' },
+      { name: 'BLACK #13 (GOMEZ)', wins: 0, losses: 1, color: 'black' },
+    ],
     ateams: [
       { name: 'BLACK (ACOSTA)',      wins: 2, losses: 2, color: 'black' },  
       { name: 'DARK GREEN (MERCADO)', wins: 1, losses: 3, color: 'green' },
       { name: 'LIGHT GREEN (ALCOBERES)',wins: 3, losses: 1, color: 'lightgreen' },
-      { name: 'LIGHT BLUE (DELA VICTORIA)', wins: 3, losses: 1, color: 'lightblue' },
+      { name: 'LIGHT BLUE (BOCALA)', wins: 0, losses: 4, color: 'lightblue' },
       { name: 'MAROON (GOMEZ)',     wins: 1, losses: 3, color: 'maroon' },
       { name: 'YELLOW (NECESITO)',     wins: 4, losses: 0, color: 'yellow' },
       { name: 'GRAY (MAMBURAM)',       wins: 3, losses: 1, color: 'gray' },
@@ -101,7 +123,7 @@
       { name: 'BROWN (BUDLONG)',      wins: 1, losses: 3, color: 'brown' },
     ],
     sortTeams() {
-      this.ateams.sort((a, b) => {
+      this.teams.sort((a, b) => {
         let winsCompare = b.wins - a.wins;
         if (winsCompare === 0) {
           return b.losses - a.losses;
@@ -109,16 +131,6 @@
           return winsCompare;
         }
       });
-
-      this.bteams.sort((a, b) => {
-        let winsCompare = b.wins - a.wins;
-        if (winsCompare === 0) {
-          return b.losses - a.losses;
-        } else {
-          return winsCompare;
-        }
-      });
-
     },
     init() {
       this.sortTeams();
@@ -147,12 +159,12 @@
 
 
 
-              <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:720px; padding-top: 10px;" id="team">
-                <div style="display: flex; justify-content: space-around; margin-top: 0px;">
+              <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:640px; padding-top: 10px;" id="team">
+                <div style="display: flex; justify-content: space-around; margin-top: 25px;">
                   
                   <div>
                       <div style="display: flex; flex-direction: column; align-items: center;color: white;">
-                        <p style="font-weight: bold;font-size: 1.6em;">Team Wins and Losses Record</p>
+                        <p style="font-weight: bold;font-size: 1.6em;">Ateneo Daddy's Cup 2025</p>
                         <p style="color: white; font-size: 1.1em;font-weight: bold;" x-text="date"></p>
                       </div>  
                   </div>
@@ -172,7 +184,7 @@
                     <div style="display: flex; ">
                     </div>
 
-                      <div style="display: flex; flex-direction: column; align-items: center; color: white; font-size: 1.2em;"   class="px-10">
+                      <div style="display: flex; flex-direction: column; align-items: center; color: white; font-size: 1.4em;"   class="px-10">
                         <div style="display: flex; justify-content: space-between; width: 100%;">
                           <p style="font-weight: bold;width: 60%;">Teams</p>
                           <p style="font-weight: bold;width: 20%;" class="text-center" >Wins</p>
@@ -180,11 +192,10 @@
                         </div>
 
 
-                        <h2 style="font-weight: bold;">BRACKET A</h2>
-                        <template x-for="(team, index) in ateams" :key="index">
-                          <div :style="{ background: index % 2 != 0 ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }" style="display: flex; justify-content: space-around ; width: 100%;">
+                        <template x-for="(team, index) in teams" :key="index">
+                          <div :style="{ background: index % 2 != 0 ? 'transparent' : 'rgba(0, 0, 0, 0.6)' }" style="display: flex; justify-content: space-around ; width: 100%;">
                             <div style="width: 60%; align-items: center;justify-content: center;">
-                              <div :style="{ background: team.color, color: team.color }" style="width: 30px; display: inline-block; margin: 2px;">-</div>
+                              <div :style="{ background: team.color, color: team.color, 'border-radius': '50%' }" style="width: 30px; height: 30px; display: inline-block; margin: 2px;">-</div>
                               <div x-text="team.name" style="justify-content: center;display: inline-block;"></div>
                             </div>
                             <input style="width: 20%; background: transparent; font-weight: bolder;" class="text-center" x-on:blur="team.wins = parseInt($event.target.value);" onfocus="this.select();" :value="team.wins"></input>
@@ -192,17 +203,6 @@
                           </div>
                         </template> 
                         
-                        <h2 style="font-weight: bold; margin-top: 10px;">BRACKET B</h2>
-                        <template x-for="(team, index) in bteams" :key="index">
-                          <div :style="{ background: index % 2 != 0 ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }" style="display: flex; justify-content: space-around ; width: 100%;">
-                            <div style="width: 60%; align-items: center;justify-content: center;">
-                              <div :style="{ background: team.color, color: team.color }" style="width: 30px; display: inline-block; margin: 2px;">-</div>
-                              <div x-text="team.name" style="justify-content: center;display: inline-block;"></div>
-                            </div>
-                            <input style="width: 20%; background: transparent; font-weight: bolder;" class="text-center" x-on:blur="team.wins = parseInt($event.target.value);" onfocus="this.select();" :value="team.wins"></input>
-                            <input style="width: 20%; background: transparent; font-weight: bolder;" class="text-center" x-on:blur="team.losses = parseInt($event.target.value);" onfocus="this.select();" :value="team.losses"></input>
-                          </div>
-                        </template> 
 
                         <!-- <div x-for="(team, index) in teams" :key="index" >
                           <p x-text="team.name"></p>
@@ -213,12 +213,12 @@
                       </div>
                     
                       <div style="display: flex;align-items: center;justify-content: center; margin-top: 10px; ">
-                        <img src="sponsors/1.jpg" style="height:60px; margin-right: 5px;">
+                        <!-- <img src="sponsors/1.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/2.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/3.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/4.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/5.jpg" style="height:60px; margin-right: 5px;">
-                        <img src="sponsors/6.jpg" style="height:60px; margin-right: 5px;">
+                        <img src="sponsors/6.jpg" style="height:60px; margin-right: 5px;"> -->
                         <button x-on:click="sortTeams()">__</button>
                       </div>
                 </div>
@@ -235,7 +235,7 @@
   <div class="flex flex-wrap">
     <div class="w-full">
       
-      <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row p-4" role="tablist">
+      <!-- <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row p-4" role="tablist">
         <li class="-mb-px mr-2 last:mr-0 text-center">
           <button class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " x-on:click="potg_tab = true"
           :class="potg_tab == true ? 'text-white bg-blue-600' : 'text-blue-600 bg-white'"
@@ -249,7 +249,7 @@
             <i class="fas fa-cog text-base mr-1"></i> Stats
           </button>
         </li>
-      </ul>
+      </ul> -->
 
       <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div class="px-4 py-5 ">
@@ -261,7 +261,8 @@
               <div style="background-image: url('bg.jpg'); background-size: cover; width:640px; height:660px; padding-top: 5px; margin-bottom: 30px;" id="potg">
                 <div style="display: flex; justify-content: space-around; margin-top: 15px;">
                   <div>
-                      <div style="display: flex; padding-left: 20px;margin-bottom: -15px;">
+                    <p style="font-weight: bold;font-size: 1.6em;color:white">Ateneo Daddy's Cup 2025</p>
+                      <!-- <div style="display: flex; padding-left: 20px;margin-bottom: -15px;">
                         <div style="padding-right: 10px;">
                           <img src="dw.jpg" style="width:60px; height:60px;">
                         </div>
@@ -269,7 +270,7 @@
                           <div style="font-weight: bold; font-size: 2.4em; margin-bottom: -15px;margin-top: -10px;font-family: Arial Black, Helvetica, sans-serif;">DONUT</div>
                           <div style="font-weight: bold; font-size: 1.2em;">W O R R Y</div>
                         </div>
-                      </div>
+                      </div> -->
                       <div style="display: flex; flex-direction: column; align-items: center;color: white;">
                         <div style="font-weight: bold;font-size: 2.6em;margin-bottom: -15px;font-family: Arial Black, Helvetica, sans-serif;">P L A Y E R</div>
                         <p style="font-weight: bold;margin-bottom: -10px;">of the</p>
@@ -292,9 +293,9 @@
                     </div>
                   </div>  
                 </div>  
-                <div >
+                <div>
                     <div style="display: flex; margin-top: 5px;">
-                      <div style="object-position: top; width:300px; height:300px;  background-size: 100%; margin-left: 15px;overflow: hidden; "> <!-- :style="{ 'background-image': 'url(' + photo + ')'}" -->
+                      <div style="object-position: top; width:300px; height:300px;  background-size: 100%; margin-left: 25px;overflow: hidden;margin-right: 25px; "> <!-- :style="{ 'background-image': 'url(' + photo + ')'}" -->
                         <div style="object-position: top; overflow: hidden; width: 100%; display: flex; align-items: center; justify-content: center;">
                           <img 
                             :src="photo"
@@ -307,49 +308,59 @@
                       <div style="padding-left: 15px; padding-top: 10px;">
                         <div :class="{ 'hidden': points == 0 }">
                           <div class="stats-container">
-                            <span class="stats" x-text="points < 10 ? '0' + points : points"></span>
-                            <span class="stats-label">POINTS</span>
+                            <span class="stats" style="position: relative;">
+                              <span style="position: absolute;" x-text="points"></span>
+                            </span>
+                            <span class="stats-label" >POINTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                           </div>
                         </div>
                         <div :class="{ 'hidden': rebounds == 0 }">
                           <div class="stats-container">
-                            
-                            <span class="stats" x-text="rebounds < 10 ? '0' + rebounds : rebounds"></span>
-                            <span class="stats-label">REBOUNDS</span>
+                            <span class="stats" style="position: relative;">
+                              <span x-text="rebounds" style="position: absolute;"></span>
+                            </span>
+                            <span class="stats-label">REBOUNDS&nbsp;</span>
                           </div>
                         </div>
           
-                    <div :class="{ 'hidden': assist == 0 }">
-                        <div class="stats-container">
-                          <span class="stats" x-text="assist < 10 ? '0' + assist : assist"></span>
-                          
-                        <span class="stats-label">ASSISTS</span>
+                      <div :class="{ 'hidden': assist == 0 }">
+                          <div class="stats-container">
+                            <span class="stats" style="position: relative;">
+                              <span x-text="assist" style="position: absolute;"></span>
+                            </span>
+                          <span class="stats-label">ASSISTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </div>
                       </div>
-                    </div>
-                    <div :class="{ 'hidden': steals == 0 }">
-                        <div class="stats-container">
-                          <span class="stats" x-text="steals < 10 ? '0' + steals : steals"></span>
-                          
-                          <span class="stats-label">STEALS</span>
+                      <div :class="{ 'hidden': steals == 0 }">
+                          <div class="stats-container">
+                            <span class="stats" style="position: relative;">
+                              <span x-text="steals" style="position: absolute;"></span>
+                            </span>
+                            
+                            <span class="stats-label">STEALS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </div>
                       </div>
-                    </div>
-                    <div :class="{ 'hidden': blocks == 0 }">
-                        <div class="stats-container">
-                          
-                          <span class="stats" x-text="blocks < 10 ? '0' + blocks : blocks"></span>
-                        <span class="stats-label">BLOCKS</span>
+                      <div :class="{ 'hidden': blocks == 0 }">
+                          <div class="stats-container">
+                            <span class="stats" style="position: relative;">
+                              <span x-text="blocks" style="position: absolute;"></span>
+                            </span>
+                          <span class="stats-label">BLOCKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </div>
                       </div>
-                      </div>
-                      </div>
-                    </div>
-                    <div style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 30px;">
-                      <div class="player-name" x-text="name.toUpperCase()"></div>
-                      <div :class="{ 'hidden': jersey == '' }">
-                        <div class="player-number">#<span x-text="jersey"></span></div>
-                      </div>
+                      
                     </div>
                     
-                      <div style="display: flex;align-items: center;justify-content: center; margin-top: 10px; ">
+                    
+                      
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 30px;">
+                  <div class="player-name" x-text="name.toUpperCase()"></div>
+                  <div :class="{ 'hidden': jersey == '' }">
+                    <div class="player-number">#<span x-text="jersey"></span></div>
+                  </div>
+                </div>
+                <div style="display: flex;align-items: center;justify-content: center; margin-top: 10px; ">
                         <img src="sponsors/1.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/2.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/3.jpg" style="height:60px; margin-right: 5px;">
@@ -357,21 +368,15 @@
                         <img src="sponsors/5.jpg" style="height:60px; margin-right: 5px;">
                         <img src="sponsors/6.jpg" style="height:60px; margin-right: 5px;">
                       </div>
-                </div>
               </div>
 
-              <div class="flex justify-between">
-                <div>
-                  <button id="downloadPlayer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download POTG</button>
-                </div>
-                <div>
-                  <button id="downloadTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Team</button>
-                </div>
-              </div>
+              
 
 
             </div>
-            <div id="link2"  :class="{ 'hidden': potg_tab == true }" style="width:640px; height:660px; padding-top: 5px;">
+
+            <div  style="width:640px; height:660px; padding-top: 5px;">
+              <!-- <div id="link2"  :class="{ 'hidden': potg_tab == true }" style="width:640px; height:660px; padding-top: 5px;"> -->
               
               
               <div>
@@ -388,12 +393,10 @@
                       <option value="">Select</option>
                       <option value="BLACK">BLACK</option>
                       <option value="BROWN">BROWN</option>
-                      <option value="D. BLUE">D. BLUE</option>
-                      <option value="D. GREEN">D. GREEN</option>
+                      <option value="DARK BLUE">D. BLUE</option>
                       <option value="GRAY">GRAY</option>
                       <option value="GREEN">GREEN</option>
-                      <option value="L. BLUE">L. BLUE</option>
-                      <option value="L. GREEN">L. GREEN</option>
+                      <option value="LIGHT BLUE">L. BLUE</option>
                       <option value="MAROON">MAROON</option>
                       <option value="ORANGE">ORANGE</option>
                       <option value="PINK">PINK</option>
@@ -409,12 +412,10 @@
                       <option value="">Select</option>
                       <option value="BLACK">BLACK</option>
                       <option value="BROWN">BROWN</option>
-                      <option value="D. BLUE">D. BLUE</option>
-                      <option value="D. GREEN">D. GREEN</option>
+                      <option value="DARK BLUE">D. BLUE</option>
                       <option value="GRAY">GRAY</option>
                       <option value="GREEN">GREEN</option>
-                      <option value="L. BLUE">L. BLUE</option>
-                      <option value="L. GREEN">L. GREEN</option>
+                      <option value="LIGHT BLUE">L. BLUE</option>
                       <option value="MAROON">MAROON</option>
                       <option value="ORANGE">ORANGE</option>
                       <option value="PINK">PINK</option>
@@ -466,8 +467,16 @@
                 
               </div>
 
+              
 
-
+            </div>
+            <div class="flex justify-between">
+              <div>
+                <button id="downloadPlayer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download POTG</button>
+              </div>
+              <div>
+                <button id="downloadTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Team</button>
+              </div>
             </div>
           </div>
         </div>
